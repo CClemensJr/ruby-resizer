@@ -6,8 +6,8 @@ class Resizer
     bucket = event["s3"]["bucket"]["name"]
     object = event["s3"]["object"]["key"]
 
-    file = from_s3(bucket, object)
-    file.resize "50x50"
-    file.uploaded_image("resized-images", "resized_" + event["s3"]["object"]["key"])
+    image = s3_image(bucket, object)
+    image.resize_image "50x50"
+    image.upload_image("resized-images", "resized_" + event["s3"]["object"]["key"])
   end
 end
