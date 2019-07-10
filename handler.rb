@@ -1,5 +1,13 @@
-require 'json'
+require 'uploaded_file'
 
-def hello(event:, context:)
-  { statusCode: 200, body: JSON.generate('Go Serverless v1.0! Your function executed successfully!') }
+class Resizer
+  def self.image_resizer(event:, context:)
+    event = event["Records"].first
+    bucket = event["s3"]["bucket"]["name"]
+    object = event["s3"]["object"]["key"]
+
+    image = s3_image(bucket, object)
+    image.resize_image "50x50"
+    image.upload_image("resized-images", "resized_" + event["s3"]["object"]["key"])
+  end
 end
