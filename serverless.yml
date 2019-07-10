@@ -15,7 +15,7 @@ provider:
 
 functions:
   resize_image:
-    handler: handler.Resizer.imageResizer
+    handler: handler.Resizer.image_resizer
     events:
       - s3:
         bucket: taskmaster-images
